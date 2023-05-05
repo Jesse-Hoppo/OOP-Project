@@ -6,11 +6,11 @@ using namespace std;
 
 int main() {
     
-    BaseSalary e2;
+    BaseSalary e; // create object e of BaseSalary
 
-    e2.input();
-    e2.calculateBaseSalary();
-    e2.printEmployeeInfo();
+    e.input(); // get user input
+    e.calculateBaseSalary(); // Calculate base salary
+    e.printEmployeeInfo(); // Print all current informaiton
 
 
 

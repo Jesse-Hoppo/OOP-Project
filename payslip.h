@@ -24,22 +24,22 @@ class Employee {
         jobPosition = new string;
         }
 
-        // Deconstruco=tor to be called
+        // Deconstrucor deallocate memory
         ~Employee() {
         delete name;
         delete location;
         delete jobPosition;
         }
 
-        void input();
-        void output();
+        void input(); // Defined Function for employee info input
+        void output(); // Defined function for employee info ouput
 
-        string* getName() {return name;}
-        string* getLocation() {return location;}
-        string* getJobPosition() {return jobPosition;}
+        string* getName() {return name;} // function to access Employee name
+        string* getLocation() {return location;} // function to access Employee location
+        string* getJobPosition() {return jobPosition;} // function to access Employee jobPosition
 
         
-        void destroy() {
+        void destroy() { // function to forecfully remove allocated memory 
         delete name;
         delete location;
         delete jobPosition;
@@ -49,35 +49,38 @@ class Employee {
         }
 };
 
-void Employee::input() {
+void Employee::input() {  // function to get all user input for Employee details
+
+    // Get input from user and set to the Employees name
     cout << "Enter name: ";
     cin >> *name;
 
-    bool validLocation = false;
-    while (!validLocation) {
+    bool validLocation = false; // set variable of bool to false
+    while (!validLocation) { // loop until bool value is changed to true
         cout << "Enter location (Adelaide, Melbourne, Sydney): ";
-        cin >> *location;
-        if (*location == "Adelaide" || *location == "Melbourne" || *location == "Sydney") {
+        cin >> *location; // take user input and dynamically change location
+        if (*location == "Adelaide" || *location == "Melbourne" || *location == "Sydney") { // if location matches one of the three options change bool and break loop
             validLocation = true;
-        } else {
+        } else { // Otherwise provide user infromaiton to the error and loop until valid location entered
             cout << "Invalid location. Please enter Adelaide, Melbourne, or Sydney." << endl;
         }
     }
 
+    //Exact same as valid locaiton above but for job position
     bool validJobPosition = false;
     while (!validJobPosition) {
         cout << "Enter job position (Programmer, Engineer, Consultant): ";
         cin >> *jobPosition;
         if (*jobPosition == "Programmer" || *jobPosition == "Engineer" || *jobPosition == "Consultant") {
-            validJobPosition = true;
             cout << "" << endl;
+            validJobPosition = true;
         } else {
             cout << "Invalid job position. Please enter Programmer, Engineer, or Consultant." << endl;
         }
     }
 }
 
-void Employee::output() {
+void Employee::output() { // function to output all Employee information if needed
     cout << "Name: " << *name << endl;
     cout << "Location: " << *location << endl;
     cout << "Job Position: " << *jobPosition << endl;
@@ -85,55 +88,55 @@ void Employee::output() {
 
 
 //-----------------------------------------------------------------------------------//
-// CLASS 2
+// CLASS 2 //
 
 class BaseSalary : public Employee {
     protected:
-        double baseSalary;
+        double baseSalary; //initalized a base salary
 
     public:
-        BaseSalary() : Employee() {
+        BaseSalary() : Employee() { // Set constructer for base salary
             baseSalary = 0;
         }
 
-        double getBaseSalary() {return baseSalary;}
+        double getBaseSalary() {return baseSalary;} // function to access baseSalary
 
 
-        void setLocationMultiplier();
-        void setBaseSalary();
-        void calculateBaseSalary();
-        void printEmployeeInfo();
+        void setLocationMultiplier(); // defined function 
+        void setBaseSalary(); // defined function
+        void calculateBaseSalary(); //defined function
+        void printEmployeeInfo(); // defined function
 };
 
-void BaseSalary::setLocationMultiplier(){
+void BaseSalary::setLocationMultiplier(){ // Function to take an Employees locaiton and multiply their base salary dependant on their location
 
-    if (*getLocation() == "Adelaide") {
+    if (*getLocation() == "Adelaide") { // Set adelaide to 0.8 times base
         baseSalary *= 0.8;
-    } else if (*getLocation() == "Melbourne") {
+    } else if (*getLocation() == "Melbourne") { // Set melbourne to 1.2 times base
         baseSalary *= 1.2;
-    } else if (*getLocation() == "Sydney") {
+    } else if (*getLocation() == "Sydney") { // Set sydnet to be 1.0 times base
         baseSalary *= 1.0;
     }
 }
 
-void BaseSalary::setBaseSalary(){
+void BaseSalary::setBaseSalary(){ // Function to set a base salary for an Employee Based on their job position
 
-    if (*getJobPosition() == "Programmer") {
+    if (*getJobPosition() == "Programmer") { // Set a Programmers base weekly salary to be $1500
         baseSalary = 1500;
-    } else if (*getJobPosition() == "Engineer") {
+    } else if (*getJobPosition() == "Engineer") { // Set a Engineers base weekly salary to be $1800
         baseSalary = 1800;
-    } else if (*getJobPosition() == "Consultant") {
+    } else if (*getJobPosition() == "Consultant") { // Set a Consultants base weekly salary to be $1700
         baseSalary = 1700;
     }
 
 }
 
-void BaseSalary::calculateBaseSalary(){
+void BaseSalary::calculateBaseSalary(){ // Function to calcualte an Employees base salary
     setBaseSalary();
     setLocationMultiplier();
 }
 
-void BaseSalary::printEmployeeInfo(){
+void BaseSalary::printEmployeeInfo(){ // Function to print all Employee inofrmation to user
 
     cout << "" << endl;
     cout << "Name: " << *getName() << endl;
