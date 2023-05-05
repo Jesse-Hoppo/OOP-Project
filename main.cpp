@@ -6,14 +6,12 @@ using namespace std;
 
 int main() {
     
-    BaseSalary e; // create object e of BaseSalary
+    TaxedSalary e; // create object e of TaxedSalary
 
     e.input(); // get user input
     e.calculateBaseSalary(); // Calculate base salary
-    e.printEmployeeInfo(); // Print all current informaiton
-
-
-
+    e.calculateTax(); // Calculate tax informaiton
+    e.output(); // Output informaiton Based on class object is created from
 
     return 0;
 

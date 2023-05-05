@@ -32,7 +32,7 @@ class Employee {
         }
 
         void input(); // Defined Function for employee info input
-        void output(); // Defined function for employee info ouput
+        virtual void output(); // Defined function for employee info ouput
 
         string* getName() {return name;} // function to access Employee name
         string* getLocation() {return location;} // function to access Employee location
@@ -101,11 +101,10 @@ class BaseSalary : public Employee {
 
         double getBaseSalary() {return baseSalary;} // function to access baseSalary
 
-
         void setLocationMultiplier(); // defined function 
         void setBaseSalary(); // defined function
         void calculateBaseSalary(); //defined function
-        void printEmployeeInfo(); // defined function
+        virtual void output(); // defined function
 };
 
 void BaseSalary::setLocationMultiplier(){ // Function to take an Employees locaiton and multiply their base salary dependant on their location
@@ -136,13 +135,78 @@ void BaseSalary::calculateBaseSalary(){ // Function to calcualte an Employees ba
     setLocationMultiplier();
 }
 
-void BaseSalary::printEmployeeInfo(){ // Function to print all Employee inofrmation to user
+void BaseSalary::output(){ // Function to print all Employee inofrmation to user
+    
+    cout << "" << endl;
+    cout << "Name: " << *getName() << endl;
+    cout << "Location: " << *getLocation() << endl;
+    cout << "Job Position: " << *getJobPosition() << endl; 
 
+    cout << "Base Salary: $" << fixed << setprecision(2) << baseSalary << endl;
+    cout << "" << endl;
+
+}
+
+
+//-----------------------------------------------------------------------------------//
+// CLASS 3 //
+
+class TaxedSalary : public BaseSalary {
+    protected:
+        double taxAmount;
+        double taxRate;
+        double taxSalary;
+
+    public:
+        TaxedSalary(){
+        taxAmount = 0;
+        taxRate = 0;
+        taxSalary = 0;
+        }
+
+        void calculateTax();   
+        void output();
+        double getTaxSalary() {return taxSalary;}
+        double getTaxAmount() {return taxAmount;}
+        double getTaxRate() {return taxRate;}
+
+
+
+};
+
+void TaxedSalary::calculateTax(){
+
+    double annualSalary = baseSalary * 52;
+    
+    if (annualSalary <= 18200) {
+        taxAmount = 0;
+    } else if (annualSalary <= 45000 ) {
+        taxAmount = (annualSalary - 18200) * 0.19;
+    } else if (annualSalary <= 120000) {
+        taxAmount = 5092 + (annualSalary - 45000) * 0.325;
+    } else if (annualSalary <= 180000) {
+        taxAmount = 29467 + (annualSalary - 120000) * 0.37;
+    }
+
+    taxSalary = (annualSalary - taxAmount) / 52;
+    taxRate = (taxAmount / annualSalary) * 100;
+    taxAmount = baseSalary - taxSalary;
+
+}
+
+void TaxedSalary::output(){
+
+    cout << "Employee Information: " << endl;
     cout << "" << endl;
     cout << "Name: " << *getName() << endl;
     cout << "Location: " << *getLocation() << endl;
     cout << "Job Position: " << *getJobPosition() << endl;
-    cout << "Base Salary: $" << fixed << setprecision(2) << baseSalary << endl;
+    cout << "Base Salary: " << baseSalary << endl;
+    cout << "Tax Amount: " << taxAmount << endl;
+    cout << "Tax Rate: " << taxRate << "%" << endl;
+    cout << "Salary After Tax " << taxSalary << endl;
     cout << "" << endl;
+
+
 
 }
